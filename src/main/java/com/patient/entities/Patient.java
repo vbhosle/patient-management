@@ -9,16 +9,21 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Patient {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonProperty("patientId")
 	private Long id;
+	
+	@JsonProperty("patientName")
 	private String name;
 	
 	@JsonFormat(pattern="yyyy-MM-dd", timezone="IST")
+	@JsonProperty("dateOfBirth")
 	private Date dob;
 
 	public String getName() {
