@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Patient {
 
@@ -15,6 +17,8 @@ public class Patient {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dob;
 
 	public String getName() {

@@ -1,6 +1,7 @@
 package com.patient.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,7 +38,14 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public Patient getPatientById(Long id) {
-		return repository.findById(id).get();
+		Patient patient = null;
+		try {
+			patient = repository.findById(id).get();
+		}
+		catch(NoSuchElementException ex) {
+			ex.printStackTrace();
+		}
+		return patient;
 	}
 
 }
