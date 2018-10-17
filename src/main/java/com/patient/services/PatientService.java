@@ -8,7 +8,7 @@ public interface PatientService {
 	
 	public Patient createPatient(Patient patient);
 	
-	public Patient updatePatienet(Patient patient);
+	public Patient updatePatient(Patient patient);
 	
 	public void deletePatient(Patient patient);
 	

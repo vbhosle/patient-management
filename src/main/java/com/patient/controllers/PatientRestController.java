@@ -41,6 +41,30 @@ public class PatientRestController {
 		responseEntity = new ResponseEntity<>(createdPatient, HttpStatus.CREATED);
 		return responseEntity;
 	}
+	
+	@RequestMapping(
+			value = "patients", 
+			method = { RequestMethod.PUT }, 
+			consumes = {MediaType.APPLICATION_JSON_VALUE},
+			produces = {MediaType.APPLICATION_JSON_VALUE}
+	)
+	public ResponseEntity<Patient> updatePatient(@RequestBody Patient patient) {
+		ResponseEntity<Patient> responseEntity;
+		
+		if(patient.getId()!=null) {
+			Patient existingPatient = patientService.getPatientById(patient.getId());
+			if(existingPatient == null) {
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
+		}
+		else {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		
+		Patient updatedPatient = patientService.updatePatient(patient);
+		responseEntity = new ResponseEntity<>(updatedPatient, HttpStatus.OK);
+		return responseEntity;
+	}
 
 	@RequestMapping(
 			value = "patients", 

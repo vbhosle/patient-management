@@ -18,7 +18,7 @@ public class Patient {
 	private Long id;
 	private String name;
 	
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="yyyy-MM-dd", timezone="IST")
 	private Date dob;
 
 	public String getName() {

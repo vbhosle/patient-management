@@ -22,7 +22,7 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
-	public Patient updatePatienet(Patient patient) {
+	public Patient updatePatient(Patient patient) {
 		return repository.save(patient);
 	}
 
@@ -43,7 +43,7 @@ public class PatientServiceImpl implements PatientService {
 			patient = repository.findById(id).get();
 		}
 		catch(NoSuchElementException ex) {
-			ex.printStackTrace();
+			System.out.println("No such Patient for id "+ id);
 		}
 		return patient;
 	}
