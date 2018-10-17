@@ -71,13 +71,26 @@ public class PatientRestController {
 			value="patients/{id}",
 			method= {RequestMethod.DELETE}
 	)
-	public ResponseEntity<Void> deletePatient(@PathVariable("id") Long id) {
+	public ResponseEntity<Void> deletePatientById(@PathVariable("id") Long id) {
 		Patient existingPatient = patientService.getPatientById(id);
 		if(existingPatient == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		patientService.deletePatient(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	@RequestMapping(
+			value="patients/{id}",
+			method= {RequestMethod.GET},
+			produces = {MediaType.APPLICATION_JSON_VALUE}
+	)
+	public ResponseEntity<Patient> getPatientById(@PathVariable("id") Long id) {
+		Patient existingPatient = patientService.getPatientById(id);
+		if(existingPatient == null) {
+			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(existingPatient, HttpStatus.OK);
 	}
 
 	@RequestMapping(
