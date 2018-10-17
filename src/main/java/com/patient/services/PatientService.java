@@ -10,7 +10,7 @@ public interface PatientService {
 	
 	public Patient updatePatient(Patient patient);
 	
-	public void deletePatient(Patient patient);
+	public void deletePatient(Long id);
 	
 	public List<Patient> getAllPatients();
 	
