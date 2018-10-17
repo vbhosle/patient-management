@@ -3,12 +3,13 @@ package com.patient.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.patient.entities.Patient;
 import com.patient.repos.PatientRepository;
 
-@Service
+@Component
 public class PatientServiceImpl implements PatientService {
 
 	@Autowired
