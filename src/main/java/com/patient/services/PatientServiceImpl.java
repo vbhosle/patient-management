@@ -2,38 +2,41 @@ package com.patient.services;
 
 import java.util.List;
 
-import com.patient.entities.Patient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.patient.entities.Patient;
+import com.patient.repos.PatientRepository;
+
+@Service
 public class PatientServiceImpl implements PatientService {
 
+	@Autowired
+	PatientRepository repository;
+	
 	@Override
 	public Patient createPatient(Patient patient) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.save(patient);
 	}
 
 	@Override
 	public Patient updatePatienet(Patient patient) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.save(patient);
 	}
 
 	@Override
 	public void deletePatient(Patient patient) {
-		// TODO Auto-generated method stub
-
+		repository.delete(patient);
 	}
 
 	@Override
 	public List<Patient> getAllPatients() {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findAll();
 	}
 
 	@Override
 	public Patient getPatientById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findById(id).get();
 	}
 
 }
