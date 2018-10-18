@@ -10,8 +10,8 @@ http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns="http://www.springframework.org/schema/beans">
 
-	<context:component-scan base-package="com.patient.controllers,com.patient.services" />
 	<mvc:annotation-driven />
+	<context:component-scan base-package="com.patient.exceptions,com.patient.controllers,com.patient.services" />
 
 	<!-- Start h2 console -->
 	<bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer"

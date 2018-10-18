@@ -2,10 +2,14 @@ package com.patient.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.ValidationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.entities.Patient;
 import com.patient.services.PatientService;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -30,8 +35,12 @@ public class PatientRestController {
 			consumes = {MediaType.APPLICATION_JSON_VALUE},
 			produces = {MediaType.APPLICATION_JSON_VALUE}
 	)
-	public ResponseEntity<Patient> createPatient(@RequestBody Patient patient) {
+	public ResponseEntity<Patient> createPatient(@Valid @RequestBody Patient patient, Errors errors) {
 		ResponseEntity<Patient> responseEntity;
+		
+		if(errors.hasErrors()) {
+			throw new ValidationException(errors.getFieldError().getDefaultMessage());
+		}
 		
 		if(patient.getId()!=null) {
 			Patient existingPatient = patientService.getPatientById(patient.getId());
@@ -103,4 +112,5 @@ public class PatientRestController {
 	public List<Patient> getAllPatients() {
 		return patientService.getAllPatients();
 	}
+	
 }
