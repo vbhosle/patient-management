@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.entities.Patient;
+import com.patient.exceptions.ResourceNotFoundException;
 import com.patient.services.PatientService;
+import com.patient.exceptions.ResourceNotFoundException;
 
 
 @RestController
@@ -66,11 +68,11 @@ public class PatientRestController {
 		if(patient.getId()!=null) {
 			Patient existingPatient = patientService.getPatientById(patient.getId());
 			if(existingPatient == null) {
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+				throw new ResourceNotFoundException("Couldn't find patient with id " + patient.getId());
 			}
 		}
 		else {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			throw new ResourceNotFoundException("No patientId provided");
 		}
 		
 		Patient updatedPatient = patientService.updatePatient(patient);
@@ -85,7 +87,7 @@ public class PatientRestController {
 	public ResponseEntity<Void> deletePatientById(@PathVariable("id") Long id) {
 		Patient existingPatient = patientService.getPatientById(id);
 		if(existingPatient == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			throw new ResourceNotFoundException("Couldn't find patient with id " + id);
 		}
 		patientService.deletePatient(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -99,7 +101,7 @@ public class PatientRestController {
 	public ResponseEntity<Patient> getPatientById(@PathVariable("id") Long id) {
 		Patient existingPatient = patientService.getPatientById(id);
 		if(existingPatient == null) {
-			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+			throw new ResourceNotFoundException("Couldn't find patient with id " + id);
 		}
 		return new ResponseEntity<>(existingPatient, HttpStatus.OK);
 	}

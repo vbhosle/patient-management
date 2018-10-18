@@ -27,6 +27,13 @@ public class RestExceptionHandler{
 		return new ResponseEntity<APIErrorResponse>(new APIErrorResponse(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.toString(), "Invalid data received", ex.getMessage()), httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	@ExceptionHandler({ResourceNotFoundException.class})
+	protected ResponseEntity<APIErrorResponse> handleNotFoundExceptions(Exception ex){
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity<APIErrorResponse>(new APIErrorResponse(HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.toString(), ex.getMessage(), ex.getMessage()), httpHeaders, HttpStatus.NOT_FOUND);
+	}
+	
 	@ExceptionHandler({Exception.class})
 	protected ResponseEntity<APIErrorResponse> handleAllExceptions(Exception ex){
 		HttpHeaders httpHeaders = new HttpHeaders();
